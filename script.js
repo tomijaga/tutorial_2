@@ -1,13 +1,14 @@
-let x = localStorage["item"];
+let x = localStorage["items"];
 let items = [];
 
-if (typeof x === undefined) {
+if (typeof x !== "undefined") {
   console.log(x);
-  items = JSON.parse(localStorage["item"]);
+  items = JSON.parse(localStorage["items"]);
 }
 
 const updateLocalStorage = () => {
-  localStorage["item"] = JSON.stringify(items);
+	console.log("should be stored");
+  localStorage["items"] = JSON.stringify(items);
 };
 
 const deleteAllItems = () => {
@@ -47,7 +48,7 @@ const printAllItems = () => {
   });
 };
 
-const displayItems = () => {
+const displayAndStoreItems = () => {
   deleteAllItems();
   printAllItems();
   updateLocalStorage();
@@ -71,7 +72,7 @@ const addAndDisplay = () => {
   if (text !== "") {
     addItemToArray(text);
     inputText.value = "";
-    displayItems();
+    displayAndStoreItems();
   }
 };
 
@@ -82,7 +83,7 @@ addButton.addEventListener("click", addAndDisplay);
 const sortAlphabetically = () => {
   items.sort((obj1, obj2) => obj1.name.localeCompare(obj2.name));
 
-  displayItems();
+  displayAndStoreItems();
 };
 
 const sortButton = document.querySelector(".sort-items");
@@ -123,12 +124,11 @@ const removeSelectedItems = () => {
     return true;
   });
 
-  displayItems();
   resetOrder();
-  updateLocalStorage();
+  displayAndStoreItems();
 };
 
 const removeButton = document.querySelector(".remove-items");
 removeButton.addEventListener("click", removeSelectedItems);
 
-window.onload = displayItems();
+window.onload = displayAndStoreItems();
