@@ -1,45 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>To-Do-List</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link
+		href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&family=Satisfy&family=Stardos+Stencil&display=swap"
+		rel="stylesheet">
 </head>
-<body >
+
+<body>
 
 	<!--Page  Title -->
-	<div class ="page-title"></div>
+	<div class="page-title"></div>
 
 	<!-- Navigation Bar -->
-	<nav class ="zone blue">
-		<button class ="remove-items">Remove Items</button>
+	<nav class="main-nav zone ">
 
-		<button><input class ="toggle-highlights" type ="color"> Toggle Highlights</button>
-		<button class ="sort-items">Sort Alphabetically</button>
-		<button class ="sort-by-colour">Sort By Colour</button>
+		<div><button class="remove-items">Remove Items</button></div>
+
+		<div class="set-highlight">
+			<input class="highlight" type="color"><button class="toggle-highlight">Highlight</button></div>
+		<div><button class="sort-items">Sort Alphabetically</button></div>
+		<div><button class="sort-by-colour">Sort By Colour</button></div>
 	</nav>
 
 	<!-- To Do list items and add components -->
-	<div class ="content zone">
-		<div class ="add-item ">
-			<input class ="input-text" type="text" name="Add-Item">
-			<button class ="add-button">Add</button>
+	<div class="content zone">
+		<div class="add-item">
+			<input class="input-text" type="text" name="Add-Item">
+			<button class="add-button">Add</button>
 		</div>
-		<div class ="items">
+		<div class="items">
 			<ol type="1" style="color:white; text-shadow: 10px 10px 15px black;">
 				<li>
-					<div class="item" >
+					<div class="item">
 						<div>Item</div>
-						<div><input id="3" type="checkbox"  ></div>  
+						<div><input id="3" type="checkbox"></div>
 					</div>
 				</li>
 
 
-				<li><div class="item" id="1">Item</div></li>
-				
+				<li>
+					<div class="item" id="1">Item</div>
+				</li>
+
 			</ol>
 		</div>
 	</div>
 
-<script type="text/javascript" src ="script.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 </body>
+
 </html>

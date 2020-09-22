@@ -36,7 +36,7 @@ button{
     border-radius: 10px;
     color: rgb(84, 217, 234);
     background: black;
-    font-family: 'Fredericka the Great', cursive;
+    font-family: 'Fredericka the Great';
     font-size: 20px;
     cursor:pointer;
     width:auto;
@@ -100,7 +100,7 @@ button:hover{
 li{
     padding:0px;
     margin:0px;
-    font-family: 'Satisfy', cursive;
+    font-family: 'Satisfy';
 }
 
 .item{

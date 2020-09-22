@@ -1,17 +1,16 @@
-let x = localStorage["items"];
 let items = [];
+let storage = window.localStorage.getItem("items");
 
-if (typeof x !== "undefined") {
-  console.log(x);
-  items = JSON.parse(localStorage["items"]);
+if (typeof storage !== "undefined") {
+  items = JSON.parse(storage);
 }
 
 const updateLocalStorage = () => {
-	console.log("should be stored");
-  localStorage["items"] = JSON.stringify(items);
+  console.log("should be stored");
+  window.localStorage.setItem("items", JSON.stringify(items));
 };
 
-const deleteAllItems = () => {
+const deleteAllDisplayedItems = () => {
   document.querySelectorAll("li").forEach((att) => {
     att.remove();
   });
@@ -21,7 +20,7 @@ const createListItem = (element) => {
   const input = document.createElement("input");
   input.setAttribute("type", "checkbox");
   input.checked = element.isChecked;
-  input.setAttribute("id", element.order);
+  input.setAttribute("id", element.id);
 
   const div1 = document.createElement("div");
   div1.appendChild(input);
@@ -30,6 +29,7 @@ const createListItem = (element) => {
   div2.innerHTML = element.name;
 
   const div3 = document.createElement("div");
+  div3.style.borderColor = element.borderColor;
   div3.classList.add("item");
 
   div3.appendChild(div2);
@@ -48,10 +48,9 @@ const printAllItems = () => {
   });
 };
 
-const displayAndStoreItems = () => {
-  deleteAllItems();
+const displayItems = () => {
+  deleteAllDisplayedItems();
   printAllItems();
-  updateLocalStorage();
 };
 
 const addItemToArray = (name) => {
@@ -59,31 +58,39 @@ const addItemToArray = (name) => {
     name: name,
     isChecked: false,
     isHighlighted: false,
-    order: items.length,
+    id: items.length,
+    borderColor: "black"
   });
 };
 
-const addAndDisplay = () => {
-  const inputText = document.querySelector(".input-text");
-  const text = inputText.value;
+const addAndDisplay = (event) => {
 
-  console.log(text);
+  if (event.keyCode === 13 || event.type === "click") {
+    const inputText = document.querySelector(".input-text");
+    const text = inputText.value;
 
-  if (text !== "") {
-    addItemToArray(text);
-    inputText.value = "";
-    displayAndStoreItems();
+    console.log(text);
+
+    if (text !== "") {
+      addItemToArray(text);
+      inputText.value = "";
+      displayItems();
+    }
   }
 };
 
 const addButton = document.querySelector(".add-button");
 addButton.addEventListener("click", addAndDisplay);
 
+const textBox = document.querySelector(".input-text");
+textBox.addEventListener("keyup", addAndDisplay);
+
+
 //Sort handler
 const sortAlphabetically = () => {
   items.sort((obj1, obj2) => obj1.name.localeCompare(obj2.name));
 
-  displayAndStoreItems();
+  displayItems();
 };
 
 const sortButton = document.querySelector(".sort-items");
@@ -107,17 +114,17 @@ const getSelectedItems = () => {
 const resetOrder = () => {
   let i = 0;
   items = items.map((obj) => {
-    obj.order = i++;
+    obj.id = i++;
     console.log(obj);
     return obj;
   });
 };
 
 const removeSelectedItems = () => {
-  let id = getSelectedItems();
+  let ids = getSelectedItems();
   items = items.filter((obj) => {
-    let x = obj.order;
-    if (id.includes(x.toString())) {
+    let x = obj.id;
+    if (ids.includes(x.toString())) {
       console.log("deleted");
       return false;
     }
@@ -125,10 +132,70 @@ const removeSelectedItems = () => {
   });
 
   resetOrder();
-  displayAndStoreItems();
+  displayItems();
 };
 
 const removeButton = document.querySelector(".remove-items");
 removeButton.addEventListener("click", removeSelectedItems);
 
-window.onload = displayAndStoreItems();
+const defaultBorderColor = () => {
+
+  if (confirm("This will change all the list items to the default colour!")) {
+    items = items.map(item => {
+      item.borderColor = "black";
+      return item;
+    })
+
+    displayItems();
+  }
+
+}
+
+const getColourInput = () => {
+  let c = document.querySelector(".highlight");
+  return `${c.value}`
+}
+
+const highlightSelectedItems = () => {
+  let selectedItems = getSelectedItems();
+  let colour = getColourInput();
+  // console.log(selectedItems);
+  // console.log(colour);
+
+  items = items.map(item => {
+    if (selectedItems.includes(item.id.toString())) {
+      item.borderColor = colour;
+    }
+    return item;
+  });
+  // console.log(items);
+
+  displayItems();
+}
+
+const toggleHighlightButton = document.querySelector(".toggle-highlight");
+toggleHighlightButton.addEventListener("dblclick", defaultBorderColor)
+toggleHighlightButton.addEventListener("click", highlightSelectedItems);
+
+const highlightColourInput = document.querySelector(".highlight");
+highlightColourInput.addEventListener("change", highlightSelectedItems);
+
+const sortByColour = () => {
+  items = items.sort((itemA, itemB) => {
+    if (itemA.borderColor > itemB.borderColor) {
+      return -1;
+    } else if (itemA.borderColor < itemB.borderColor) {
+      return 1;
+    }
+    return 0;
+  })
+
+  displayItems();
+}
+
+const sortByColourButton = document.querySelector(".sort-by-colour");
+sortByColourButton.onclick = sortByColour;
+
+window.onload = displayItems;
+
+window.onbeforeunload = updateLocalStorage;
