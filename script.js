@@ -1,8 +1,16 @@
 let items = [];
 let storage = window.localStorage.getItem("items");
 
-if (storage !== null ) {
-  console.log(storage ===undefined);
+console.log(items===null);
+console.log(window.localStorage.getItem("items")==="null");
+console.log(window.localStorage.getItem("items")===null);
+console.log(window.localStorage.getItem("items")===undefined);
+console.log(window.localStorage.getItem("items")==="undefined");
+console.log(typeof window.localStorage.getItem("items"));
+console.log(window.localStorage.getItem("items"));
+
+if (storage !== null && storage !== "null") {
+  console.log("Collected localStorageData");
   items = JSON.parse(storage);
 }
 
@@ -70,7 +78,7 @@ const addAndDisplay = (event) => {
     const inputText = document.querySelector(".input-text");
     const text = inputText.value;
 
-    console.log("Added ==> \""+ text+"\"");
+    console.log("Added: \""+ text+"\"");
 
     if (text !== "") {
       addItemToArray(text);
