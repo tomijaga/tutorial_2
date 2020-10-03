@@ -1,0 +1,18 @@
+I made a To-Do-List app according to the specifications of the the practice prolem
+with the following Components and Functionalities:
+
+Input field:
+	- Adds inputed text when enter is clicked or the ADD button is clicked
+
+REMOVE ITEMS button:
+	- Removes selected item from the list
+
+HIGHLIGHT button:
+	- Sets the color in the color input to the selected item
+	- Changes all item colors to the default on DOUBLE CLICK
+
+SORT ALPHABETICALLY:
+	- Sorts all items alphativally
+
+SORT BY COLOR:
+	- Sorts all items relative their hex color

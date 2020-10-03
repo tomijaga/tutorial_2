@@ -1,0 +1,19 @@
+{
+  "name": "tutorial_2",
+  "version": "1.0.0",
+  "description": "To Do List",
+  "main": "script.js",
+  "scripts": {
+    "test": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomijaga/tutorial_2.git"
+  },
+  "author": "Tomi Jaga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomijaga/tutorial_2/issues"
+  },
+  "homepage": "https://github.com/tomijaga/tutorial_2#readme"
+}
